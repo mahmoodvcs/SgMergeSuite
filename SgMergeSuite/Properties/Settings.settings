@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SgMergeSuite.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="VersionControlServerPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://alborzscm:8080/tfs</Value>
+    </Setting>
+    <Setting Name="WorkspaceName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">WS-1039</Value>
+    </Setting>
+    <Setting Name="WorkspaceOwner" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NimaB</Value>
+    </Setting>
+    <Setting Name="SourceBranch" Type="System.String" Scope="User">
+      <Value Profile="(Default)">$/GM/Prd/V5/SVPMain</Value>
+    </Setting>
+    <Setting Name="TargetBranch" Type="System.String" Scope="User">
+      <Value Profile="(Default)">$/GM/Prd/V5/SVPDvp</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

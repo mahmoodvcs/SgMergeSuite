@@ -1,0 +1,17 @@
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\bin\Debug\SgMergeSuite.exe.config
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\bin\Debug\SgMergeSuite.exe
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\bin\Debug\SgMergeSuite.pdb
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\obj\Debug\SgMergeSuite.csprojResolveAssemblyReference.cache
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\obj\Debug\SgMergeSuite.frmMain.resources
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\obj\Debug\SgMergeSuite.Properties.Resources.resources
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\obj\Debug\SgMergeSuite.csproj.GenerateResource.Cache
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\obj\Debug\SgMergeSuite.exe
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\obj\Debug\SgMergeSuite.pdb
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\bin\Debug\System.Net.Http.Formatting.dll
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\bin\Debug\System.Web.Http.dll
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\bin\Debug\Microsoft.TeamFoundation.WorkItemTracking.Client.DataStoreLoader.dll
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\bin\Debug\System.Net.Http.Formatting.xml
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\bin\Debug\System.Web.Http.xml
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\bin\Debug\Microsoft.WITDataStore.dll
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\obj\Debug\SgMergeSuite.frmMerge.resources
+c:\users\nimab\documents\visual studio 2013\Projects\SgMergeSuite\SgMergeSuite\obj\Debug\SgMergeSuite.frmOptions.resources
