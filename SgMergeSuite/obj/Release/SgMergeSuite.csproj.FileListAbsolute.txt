@@ -15,3 +15,20 @@ C:\Users\NimaB\Documents\Visual Studio 2013\Projects\SgMergeSuite\SgMergeSuite\o
 C:\Users\NimaB\Documents\Visual Studio 2013\Projects\SgMergeSuite\SgMergeSuite\obj\Release\SgMergeSuite.exe
 C:\Users\NimaB\Documents\Visual Studio 2013\Projects\SgMergeSuite\SgMergeSuite\obj\Release\SgMergeSuite.pdb
 C:\Users\NimaB\Documents\Visual Studio 2013\Projects\SgMergeSuite\SgMergeSuite\obj\Release\SgMergeSuite.csprojResolveAssemblyReference.cache
+E:\Projects\SgMergeSuite\SgMergeSuite\bin\Release\SgMergeSuite.exe.config
+E:\Projects\SgMergeSuite\SgMergeSuite\obj\Release\SgMergeSuite.exe
+E:\Projects\SgMergeSuite\SgMergeSuite\obj\Release\SgMergeSuite.pdb
+E:\Projects\SgMergeSuite\SgMergeSuite\bin\Release\SgMergeSuite.exe
+E:\Projects\SgMergeSuite\SgMergeSuite\bin\Release\SgMergeSuite.pdb
+E:\Projects\SgMergeSuite\SgMergeSuite\bin\Release\Microsoft.TeamFoundation.WorkItemTracking.Client.DataStoreLoader.dll
+E:\Projects\SgMergeSuite\SgMergeSuite\bin\Release\System.Net.Http.Formatting.dll
+E:\Projects\SgMergeSuite\SgMergeSuite\bin\Release\System.Web.Http.dll
+E:\Projects\SgMergeSuite\SgMergeSuite\bin\Release\System.Net.Http.Formatting.xml
+E:\Projects\SgMergeSuite\SgMergeSuite\bin\Release\System.Web.Http.xml
+E:\Projects\SgMergeSuite\SgMergeSuite\bin\Release\Microsoft.WITDataStore.dll
+E:\Projects\SgMergeSuite\SgMergeSuite\obj\Release\SgMergeSuite.csprojResolveAssemblyReference.cache
+E:\Projects\SgMergeSuite\SgMergeSuite\obj\Release\SgMergeSuite.frmMain.resources
+E:\Projects\SgMergeSuite\SgMergeSuite\obj\Release\SgMergeSuite.frmMerge.resources
+E:\Projects\SgMergeSuite\SgMergeSuite\obj\Release\SgMergeSuite.frmOptions.resources
+E:\Projects\SgMergeSuite\SgMergeSuite\obj\Release\SgMergeSuite.Properties.Resources.resources
+E:\Projects\SgMergeSuite\SgMergeSuite\obj\Release\SgMergeSuite.csproj.GenerateResource.Cache

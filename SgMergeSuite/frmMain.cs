@@ -44,7 +44,7 @@ namespace SgMergeSuite
             if (result == DialogResult.OK)
             {
                 var selectedChangesetIds = GetSelectedChangesetIds();
-                var selectedChangesets = mergeCandidates.Where(m => selectedChangesetIds.Contains(m.ChangesetId)).ToList().Clone().ToList();
+                var selectedChangesets = mergeCandidates.Where(m => selectedChangesetIds.Contains(m.ChangesetId)).ToList().ToList();
                 var frmMerge = new frmMerge(TfsServer, selectedChangesets, txtSourceBranch.Text, txtTargetBranch.Text);
                 frmMerge.ShowDialog();
                 RefreshMergeCandidates();
