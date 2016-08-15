@@ -71,6 +71,7 @@
             // 
             // btnGetMergeCandidates
             // 
+            this.btnGetMergeCandidates.ForeColor = System.Drawing.Color.ForestGreen;
             this.btnGetMergeCandidates.Location = new System.Drawing.Point(20, 77);
             this.btnGetMergeCandidates.Name = "btnGetMergeCandidates";
             this.btnGetMergeCandidates.Size = new System.Drawing.Size(234, 35);
@@ -99,13 +100,14 @@
             this.grdMergeCandidates.Name = "grdMergeCandidates";
             this.grdMergeCandidates.ReadOnly = true;
             this.grdMergeCandidates.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdMergeCandidates.Size = new System.Drawing.Size(733, 251);
+            this.grdMergeCandidates.Size = new System.Drawing.Size(759, 251);
             this.grdMergeCandidates.TabIndex = 1;
             this.grdMergeCandidates.SelectionChanged += new System.EventHandler(this.grdMergeCandidates_SelectionChanged);
             // 
             // btnMergeSelectedItems
             // 
             this.btnMergeSelectedItems.Enabled = false;
+            this.btnMergeSelectedItems.ForeColor = System.Drawing.SystemColors.Highlight;
             this.btnMergeSelectedItems.Location = new System.Drawing.Point(20, 118);
             this.btnMergeSelectedItems.Name = "btnMergeSelectedItems";
             this.btnMergeSelectedItems.Size = new System.Drawing.Size(234, 35);
@@ -171,16 +173,16 @@
             this.grboxChangeSetInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grboxChangeSetInfo.Location = new System.Drawing.Point(301, 36);
             this.grboxChangeSetInfo.Name = "grboxChangeSetInfo";
-            this.grboxChangeSetInfo.Size = new System.Drawing.Size(444, 164);
+            this.grboxChangeSetInfo.Size = new System.Drawing.Size(470, 164);
             this.grboxChangeSetInfo.TabIndex = 4;
             this.grboxChangeSetInfo.TabStop = false;
-            this.grboxChangeSetInfo.Text = "Changeset Details";
+            this.grboxChangeSetInfo.Text = "Changeset & Work Items Details";
             // 
             // lblWorkitemDetails
             // 
             this.lblWorkitemDetails.AutoSize = true;
-            this.lblWorkitemDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWorkitemDetails.Location = new System.Drawing.Point(271, 22);
+            this.lblWorkitemDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWorkitemDetails.Location = new System.Drawing.Point(309, 22);
             this.lblWorkitemDetails.Name = "lblWorkitemDetails";
             this.lblWorkitemDetails.Size = new System.Drawing.Size(91, 13);
             this.lblWorkitemDetails.TabIndex = 3;
@@ -189,8 +191,8 @@
             // lblChangesetDetails
             // 
             this.lblChangesetDetails.AutoSize = true;
-            this.lblChangesetDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChangesetDetails.Location = new System.Drawing.Point(63, 22);
+            this.lblChangesetDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChangesetDetails.Location = new System.Drawing.Point(83, 22);
             this.lblChangesetDetails.Name = "lblChangesetDetails";
             this.lblChangesetDetails.Size = new System.Drawing.Size(93, 13);
             this.lblChangesetDetails.TabIndex = 2;
@@ -198,29 +200,30 @@
             // 
             // txtWorkItemDetails
             // 
+            this.txtWorkItemDetails.BackColor = System.Drawing.Color.White;
             this.txtWorkItemDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtWorkItemDetails.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtWorkItemDetails.Location = new System.Drawing.Point(226, 38);
+            this.txtWorkItemDetails.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWorkItemDetails.Location = new System.Drawing.Point(244, 38);
             this.txtWorkItemDetails.Multiline = true;
             this.txtWorkItemDetails.Name = "txtWorkItemDetails";
             this.txtWorkItemDetails.ReadOnly = true;
             this.txtWorkItemDetails.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtWorkItemDetails.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.txtWorkItemDetails.Size = new System.Drawing.Size(212, 120);
+            this.txtWorkItemDetails.Size = new System.Drawing.Size(220, 120);
             this.txtWorkItemDetails.TabIndex = 1;
             this.txtWorkItemDetails.WordWrap = false;
             // 
             // txtChangesetDetails
             // 
-            this.txtChangesetDetails.BackColor = System.Drawing.SystemColors.Control;
+            this.txtChangesetDetails.BackColor = System.Drawing.Color.White;
             this.txtChangesetDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtChangesetDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChangesetDetails.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.txtChangesetDetails.Location = new System.Drawing.Point(7, 38);
             this.txtChangesetDetails.Multiline = true;
             this.txtChangesetDetails.Name = "txtChangesetDetails";
             this.txtChangesetDetails.ReadOnly = true;
             this.txtChangesetDetails.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.txtChangesetDetails.Size = new System.Drawing.Size(213, 120);
+            this.txtChangesetDetails.Size = new System.Drawing.Size(231, 120);
             this.txtChangesetDetails.TabIndex = 0;
             this.txtChangesetDetails.WordWrap = false;
             // 
@@ -231,7 +234,7 @@
             this.tsmTools});
             this.tsmMenu.Location = new System.Drawing.Point(0, 0);
             this.tsmMenu.Name = "tsmMenu";
-            this.tsmMenu.Size = new System.Drawing.Size(757, 24);
+            this.tsmMenu.Size = new System.Drawing.Size(783, 24);
             this.tsmMenu.TabIndex = 5;
             this.tsmMenu.Text = "menuStrip1";
             // 
@@ -308,7 +311,7 @@
             this.tsslSelectedItems});
             this.statusStrip.Location = new System.Drawing.Point(0, 469);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(757, 24);
+            this.statusStrip.Size = new System.Drawing.Size(783, 24);
             this.statusStrip.TabIndex = 6;
             this.statusStrip.Text = "statusStrip";
             // 
@@ -354,7 +357,7 @@
             this.commentDataGridViewTextBoxColumn.HeaderText = "Comment";
             this.commentDataGridViewTextBoxColumn.Name = "commentDataGridViewTextBoxColumn";
             this.commentDataGridViewTextBoxColumn.ReadOnly = true;
-            this.commentDataGridViewTextBoxColumn.Width = 330;
+            this.commentDataGridViewTextBoxColumn.Width = 400;
             // 
             // changesetViewBindingSource
             // 
@@ -364,7 +367,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(757, 493);
+            this.ClientSize = new System.Drawing.Size(783, 493);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.grboxChangeSetInfo);
             this.Controls.Add(this.grboxBranchInfo);
@@ -398,10 +401,6 @@
         private System.Windows.Forms.Button btnGetMergeCandidates;
         private System.Windows.Forms.DataGridView grdMergeCandidates;
         private System.Windows.Forms.BindingSource changesetViewBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn changesetIdDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn userDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnMergeSelectedItems;
         private System.Windows.Forms.GroupBox grboxBranchInfo;
         private System.Windows.Forms.TextBox txtTargetBranch;
@@ -426,6 +425,10 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel tsslMergeCandidates;
         private System.Windows.Forms.ToolStripStatusLabel tsslSelectedItems;
+        private System.Windows.Forms.DataGridViewTextBoxColumn changesetIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn userDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn;
     }
 }
 

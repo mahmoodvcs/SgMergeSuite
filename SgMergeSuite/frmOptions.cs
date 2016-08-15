@@ -10,17 +10,23 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SgMergeSuite.Code.Helpers;
 using SgMergeSuite.Properties;
+using SgMergeSuite.Code.Wrappers;
 
 namespace SgMergeSuite
 {
     public partial class frmOptions : Form
     {
-        public frmOptions()
+        public frmOptions(bool showBtnConnect = false)
         {
             InitializeComponent();
             txtServerPath.Text = ConfigHelper.VertionControlServerPath;
-            txtWorkspaceName.Text = ConfigHelper.WorkspaceName;
-            txtWorkspaceOwner.Text = ConfigHelper.WorkspaceOwner;
+            txtWorkspaceName.Text = string.IsNullOrEmpty(ConfigHelper.WorkspaceName) || showBtnConnect ?
+                Environment.MachineName :
+                ConfigHelper.WorkspaceName;
+            txtWorkspaceOwner.Text = string.IsNullOrEmpty(ConfigHelper.WorkspaceOwner) || showBtnConnect ?
+                Environment.UserName :
+                ConfigHelper.WorkspaceOwner;
+            btnSave.Text = showBtnConnect ? "Connect" : "Save";
         }
 
         private void btnClose_Click(object sender, EventArgs e)

@@ -6,10 +6,10 @@
       <Value Profile="(Default)">http://alborzscm:8080/tfs</Value>
     </Setting>
     <Setting Name="WorkspaceName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">WS-1039</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="WorkspaceOwner" Type="System.String" Scope="User">
-      <Value Profile="(Default)">NimaB</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SourceBranch" Type="System.String" Scope="User">
       <Value Profile="(Default)">$/GM/Prd/V5/SVPMain</Value>

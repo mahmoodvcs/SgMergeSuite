@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Helpers\ExtensionMethods.cs" />
     <Compile Include="Code\Helpers\ObjectCloneHelper.cs" />
     <Compile Include="Code\Infrast\ICloneable.cs" />
     <Compile Include="Code\ModelViews\ChangesetView.cs" />

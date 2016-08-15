@@ -15,8 +15,19 @@ namespace SgMergeSuite
 {
     public partial class frmMain : Form
     {
-        protected TfsWrapper TfsServer;
-        private List<ChangesetView> mergeCandidates; 
+        private TfsWrapper _tfsServer;
+        public TfsWrapper TfsServer
+        {
+            get { return _tfsServer; }
+            set
+            {
+                _tfsServer = value;
+                SetControlStates();
+            }
+        }
+
+        private List<ChangesetView> mergeCandidates;
+
         public frmMain()
         {
             InitializeComponent();
@@ -26,6 +37,8 @@ namespace SgMergeSuite
             this.txtSourceBranch.TextChanged += new System.EventHandler(this.txtBranch_TextChanged);
             SetMergeCandidateButtonState();
             SetControlStates();
+            if (TfsServer == null)
+                tsmiOptions_Click(null, null);
         }
 
 
@@ -62,7 +75,7 @@ namespace SgMergeSuite
                 return;
             }
             var changesetId = GetSelectedChangesetIds().First();
-            var chageset=  TfsServer.GetChangesetDetail(changesetId);
+            var chageset = TfsServer.GetChangesetDetail(changesetId);
 
             txtWorkItemDetails.Text = string.Join("\r\n", chageset.WorkItems);
             txtChangesetDetails.Text = string.Join("\r\n", chageset.Changes);
@@ -102,7 +115,7 @@ namespace SgMergeSuite
         {
             tsmiGetMergeCandidates.Enabled = btnGetMergeCandidates.Enabled = !string.IsNullOrEmpty(txtSourceBranch.Text) &&
                                             !string.IsNullOrEmpty(txtTargetBranch.Text);
-            tsmiMergeSelectedItems.Enabled = btnMergeSelectedItems.Enabled =grdMergeCandidates.SelectedRows.Count > 0 && btnGetMergeCandidates.Enabled;
+            tsmiMergeSelectedItems.Enabled = btnMergeSelectedItems.Enabled = grdMergeCandidates.SelectedRows.Count > 0 && btnGetMergeCandidates.Enabled;
         }
 
         private void RefreshMergeCandidates()
@@ -118,11 +131,12 @@ namespace SgMergeSuite
 
         private void tsmiOptions_Click(object sender, EventArgs e)
         {
-            var frmOptions = new frmOptions();
-            var result =  frmOptions.ShowDialog();
+            var frmOptions = new frmOptions(TfsServer == null);
+            var result = frmOptions.ShowDialog();
             if (result == DialogResult.OK)
             {
                 TfsServer = null;
+                tsmiConnect_Click(null, null);
                 SetControlStates();
             }
             frmOptions.Dispose();
@@ -132,13 +146,17 @@ namespace SgMergeSuite
         {
             try
             {
-                TfsServer = new TfsWrapper(ConfigHelper.VertionControlServerPath, ConfigHelper.WorkspaceName, ConfigHelper.WorkspaceOwner);
-                SetControlStates();
-
+                var strWorkspaceName = string.IsNullOrEmpty(ConfigHelper.WorkspaceName) ?
+                Environment.MachineName :
+                ConfigHelper.WorkspaceName;
+                var strWorkspaceOwner = string.IsNullOrEmpty(ConfigHelper.WorkspaceOwner) ?
+                    Environment.UserName :
+                    ConfigHelper.WorkspaceOwner;
+                TfsServer = new TfsWrapper(ConfigHelper.VertionControlServerPath, strWorkspaceName, strWorkspaceOwner);
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Could not connect to TFS Source Control Server.\nCheck your application settings.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
