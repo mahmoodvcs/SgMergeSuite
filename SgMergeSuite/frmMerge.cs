@@ -16,7 +16,7 @@ namespace SgMergeSuite
 {
     public partial class frmMerge : Form
     {
-        protected TfsWrapper TfsServer;
+        protected ITfsWrapper TfsServer;
         protected readonly IList<ChangesetView> MainChangesets;
         protected IList<ChangesetView> Changesets;
         protected readonly string SourceBranch;
@@ -32,7 +32,7 @@ namespace SgMergeSuite
             AfterAllChangesetsExpectTheLast,
             BeforeAllChangesetsExpectTheLast
         }
-        public frmMerge(TfsWrapper tfsWrapper, IList<ChangesetView> changesets, string sourceBranch, string targetBranch)
+        public frmMerge(ITfsWrapper tfsWrapper, IList<ChangesetView> changesets, string sourceBranch, string targetBranch)
         {
             MainChangesets = changesets.Clone();
             Changesets = changesets;
@@ -112,6 +112,7 @@ namespace SgMergeSuite
                     mergeItemViewBindingSource.Add(mergeItem);
                     MessageBox.Show(string.Format("There were {0} conflicts merging changeset #{1}, resolve these conflicts/failures and try again....", mergeItem.NumConflicts, mergeItem.ChangesetId), "Conflicts/Failures", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     btnStop.Enabled = btnStart.Enabled = false;
+					new TfsPowerToolsWrapper(TfsServer.WorkspaceName).Resolve();
                     return;
                 }
                 await Task.Run(() => CheckInPendingChanges(mergeItem, includeWorkItems));

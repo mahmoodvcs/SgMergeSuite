@@ -15,8 +15,8 @@ namespace SgMergeSuite
 {
     public partial class frmMain : Form
     {
-        private TfsWrapper _tfsServer;
-        public TfsWrapper TfsServer
+        private ITfsWrapper _tfsServer;
+        public ITfsWrapper TfsServer
         {
             get { return _tfsServer; }
             set
@@ -31,14 +31,10 @@ namespace SgMergeSuite
         public frmMain()
         {
             InitializeComponent();
-            txtTargetBranch.Text = ConfigHelper.TargetBranch;
-            txtSourceBranch.Text = ConfigHelper.SourceBranch;
-            this.txtTargetBranch.TextChanged += new System.EventHandler(this.txtBranch_TextChanged);
-            this.txtSourceBranch.TextChanged += new System.EventHandler(this.txtBranch_TextChanged);
-            SetMergeCandidateButtonState();
-            SetControlStates();
             if (TfsServer == null)
                 tsmiOptions_Click(null, null);
+            SetMergeCandidateButtonState();
+            SetControlStates();
         }
 
 
@@ -48,21 +44,26 @@ namespace SgMergeSuite
         }
 
 
-        private void btnGetSelected_Click(object sender, EventArgs e)
-        {
-            var result = MessageBox.Show(
-                    "Always make sure that you have the latest version on both branches (source & target) and you have no pending changes waiting to be checked in.",
-                    "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-
-            if (result == DialogResult.OK)
-            {
-                var selectedChangesetIds = GetSelectedChangesetIds();
-                var selectedChangesets = mergeCandidates.Where(m => selectedChangesetIds.Contains(m.ChangesetId)).ToList().ToList();
-                var frmMerge = new frmMerge(TfsServer, selectedChangesets, txtSourceBranch.Text, txtTargetBranch.Text);
-                frmMerge.ShowDialog();
-                RefreshMergeCandidates();
-            }
-        }
+		private void btnGetSelected_Click(object sender, EventArgs e)
+		{
+			if (TfsServer.PendingChangesCount() > 0)
+			{
+				MessageBox.Show(
+					"You have pending changes in your local copy. Check them in or shelve them to proceed.",
+					"Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+				return;
+			}
+			var result = MessageBox.Show(
+				"Always make sure that you have the latest version on both branches (source & target).",
+				"Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+			if (result != DialogResult.OK)
+				return;
+			var selectedChangesetIds = GetSelectedChangesetIds();
+			var selectedChangesets = mergeCandidates.Where(m => selectedChangesetIds.Contains(m.ChangesetId)).ToList().ToList();
+			var frmMerge = new frmMerge(TfsServer, selectedChangesets, GetSourceBranch(), GetTargetBranch());
+			frmMerge.ShowDialog();
+			RefreshMergeCandidates();
+		}
 
         private void grdMergeCandidates_SelectionChanged(object sender, EventArgs e)
         {
@@ -79,13 +80,6 @@ namespace SgMergeSuite
 
             txtWorkItemDetails.Text = string.Join("\r\n", chageset.WorkItems);
             txtChangesetDetails.Text = string.Join("\r\n", chageset.Changes);
-        }
-
-        private void txtBranch_TextChanged(object sender, EventArgs e)
-        {
-            ConfigHelper.SourceBranch = txtSourceBranch.Text;
-            ConfigHelper.TargetBranch = txtTargetBranch.Text;
-            SetMergeCandidateButtonState();
         }
 
 
@@ -110,11 +104,10 @@ namespace SgMergeSuite
             }
             return changesets;
         }
-
         private void SetMergeCandidateButtonState()
         {
-            tsmiGetMergeCandidates.Enabled = btnGetMergeCandidates.Enabled = !string.IsNullOrEmpty(txtSourceBranch.Text) &&
-                                            !string.IsNullOrEmpty(txtTargetBranch.Text);
+            tsmiGetMergeCandidates.Enabled = btnGetMergeCandidates.Enabled = !string.IsNullOrEmpty(GetSourceBranch()) &&
+                                            !string.IsNullOrEmpty(GetTargetBranch());
             tsmiMergeSelectedItems.Enabled = btnMergeSelectedItems.Enabled = grdMergeCandidates.SelectedRows.Count > 0 && btnGetMergeCandidates.Enabled;
         }
 
@@ -122,7 +115,7 @@ namespace SgMergeSuite
         {
             this.Enabled = false;
             changesetViewBindingSource.Clear();
-            mergeCandidates = TfsServer.GetMergeCandidates(txtSourceBranch.Text, txtTargetBranch.Text);
+            mergeCandidates = TfsServer.GetMergeCandidates(GetSourceBranch(), GetTargetBranch());
             changesetViewBindingSource.DataSource = mergeCandidates;
             tsslMergeCandidates.Text = "Merge Candidates: " + grdMergeCandidates.RowCount;
             this.Enabled = true;
@@ -131,15 +124,41 @@ namespace SgMergeSuite
 
         private void tsmiOptions_Click(object sender, EventArgs e)
         {
-            var frmOptions = new frmOptions(TfsServer == null);
-            var result = frmOptions.ShowDialog();
-            if (result == DialogResult.OK)
+            try
             {
-                TfsServer = null;
-                tsmiConnect_Click(null, null);
-                SetControlStates();
+                var frmOptions = new frmOptions(TfsServer == null);
+                var result = frmOptions.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    TfsServer = null;
+                    tsmiConnect_Click(null, null);
+                    SetControlStates();
+                }
+                frmOptions.Dispose();
+                LoadConfig();
             }
-            frmOptions.Dispose();
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void CreateBranchTrees()
+        {
+            CreateBranchTrees(uxSourceBranch.Nodes, TfsServer.Branches);
+            //CreateBranchTrees(uxTargetBranch.Nodes, TfsServer.Branches);
+        }
+
+        private void CreateBranchTrees(ComboTreeNodeCollection nodes, List<BranchInfo> brs)
+        {
+            nodes.Clear();
+            foreach (var br in brs)
+            {
+                var n = nodes.Add(br.Name);
+                n.Tag = br;
+                CreateBranchTrees(n.Nodes, br.ChildBranches);
+            }
         }
 
         private void tsmiConnect_Click(object sender, EventArgs e)
@@ -153,6 +172,7 @@ namespace SgMergeSuite
                     Environment.UserName :
                     ConfigHelper.WorkspaceOwner;
                 TfsServer = new TfsWrapper(ConfigHelper.VertionControlServerPath, strWorkspaceName, strWorkspaceOwner);
+                CreateBranchTrees();
             }
             catch (Exception ex)
             {
@@ -161,10 +181,93 @@ namespace SgMergeSuite
 
         }
 
+        void LoadConfig()
+        {
+            if (!string.IsNullOrEmpty(ConfigHelper.SourceBranch))
+                uxSourceBranch.SelectedNode = uxSourceBranch.GetNodeAt(ConfigHelper.SourceBranch.Remove(0, 2));
+            if (!string.IsNullOrEmpty(ConfigHelper.TargetBranch))
+                try
+                {
+                    uxTargetBranch.SelectedNode = uxTargetBranch.GetNodeAt(ConfigHelper.TargetBranch.Remove(0, 2));
+                }
+                catch { }
+        }
+
         private void SetControlStates()
         {
             grdMergeCandidates.Enabled = grboxBranchInfo.Enabled = TfsServer != null;
         }
 
+        private void uxSourceBranch_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            ConfigHelper.SourceBranch = GetSourceBranch();
+            FillTargetBrachItems();
+        }
+        private void uxTargetBranch_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            ConfigHelper.TargetBranch = GetTargetBranch();
+            UpdateMergePath();
+        }
+
+        string GetSourceBranch(bool addRootSign = true)
+        {
+            return uxSourceBranch.SelectedNode == null ? "" : (addRootSign ? "$/" : "") + uxSourceBranch.SelectedNode.GetFullPath("/", false);
+        }
+        string GetTargetBranch()
+        {
+            return uxTargetBranch.SelectedNode == null ? "" : "$/" + uxTargetBranch.SelectedNode.GetFullPath("/", false);
+        }
+
+        private void uxAllowMultiLevelMerge_CheckedChanged(object sender, EventArgs e)
+        {
+            FillTargetBrachItems();
+        }
+
+        private void FillTargetBrachItems()
+        {
+            var source = TfsServer.FindBranch(GetSourceBranch());
+            //var branches = TfsServer.GetAllowedMergeBranches(source, uxAllowMultiLevelMerge.Checked);
+            uxTargetBranch.Nodes.Clear();
+            if (source == null)
+            {
+                uxTargetBranch.Enabled = false;
+                return;
+            }
+            uxTargetBranch.Enabled = true;
+            if (!uxAllowMultiLevelMerge.Checked)
+            {
+                foreach (var br in source.ChildBranches)
+                {
+                    var n = uxTargetBranch.Nodes.Add(br.Name.Remove(0, 2));
+                    n.Tag = br;
+                }
+                if (source.Parent != null)
+                {
+                    var n = uxTargetBranch.Nodes.Add(source.Parent.Name.Remove(0, 2));
+                    n.Tag = source.Parent;
+                }
+                uxTargetBranch.SelectedNode = uxTargetBranch.Nodes[0];
+            }
+            else
+            {
+                var l = new List<Code.Wrappers.BranchInfo>();
+                l.Add(TfsServer.Branches.Single(b => GetSourceBranch(false).StartsWith(b.Name)));
+                CreateBranchTrees(uxTargetBranch.Nodes, l);
+                uxTargetBranch.SelectedNode = uxTargetBranch.GetNodeAt((source.Parent ?? source.ChildBranches[0]).Name.Remove(0, 2));
+            }
+        }
+
+        private void UpdateMergePath()
+        {
+            var path = TfsServer.GetPath(GetSourceBranch(), GetTargetBranch());
+            if (path == null)
+            {
+                uxMergePath.Text = "";
+                btnGetMergeCandidates.Enabled = false;
+                return;
+            }
+            btnGetMergeCandidates.Enabled = true;
+            uxMergePath.Text = string.Join(" -->> ", path.Select(p => p.Name.Remove(0, 2)));
+        }
     }
 }

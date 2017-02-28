@@ -35,6 +35,9 @@
     <ApplicationIcon>1423479521_406780.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DropDownControls">
+      <HintPath>..\lib\DropDownControls.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.TeamFoundation.Client, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.TeamFoundation.VersionControl.Client, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.TeamFoundation.VersionControl.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -60,7 +63,10 @@
     <Compile Include="Code\ModelViews\CheckInItemView.cs" />
     <Compile Include="Code\ModelViews\MergeItemView.cs" />
     <Compile Include="Code\ModelViews\WorkItemView.cs" />
+    <Compile Include="Code\Wrappers\BranchInfo.cs" />
+    <Compile Include="Code\Wrappers\ITfsWrapper.cs" />
     <Compile Include="Code\Wrappers\TfsWrapper.cs" />
+    <Compile Include="Code\Wrappers\TfsWrapperBase.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Code\Wrappers\TfsPowerToolsWrapper.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>

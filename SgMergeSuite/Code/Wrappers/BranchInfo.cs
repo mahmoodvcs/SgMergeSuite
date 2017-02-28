@@ -27,12 +27,35 @@ namespace SgMergeSuite.Code.Wrappers
             {
                 if (child.Properties.RootItem.Item == o.Properties.RootItem.Item)
                     continue;
-                ChildBranches.Add(new Wrappers.BranchInfo(child, vcs));
+                var b = new Wrappers.BranchInfo(child, vcs);
+                b.Parent = this;
+                ChildBranches.Add(b);
             }
 
+        }
+
+        public BranchInfo GetRoot()
+        {
+            if (Parent == null)
+                return this;
+            return Parent.GetRoot();
+        }
+
+        public BranchInfo FindBranch(string path)
+        {
+            if (Name == path)
+                return this;
+            foreach (var ch in ChildBranches)
+            {
+                var br = ch.FindBranch(path);
+                if (br != null)
+                    return br;
+            }
+            return null;
         }
         public string Name { get; set; }
         public List<BranchInfo> ChildBranches { get; set; }
         public BranchObject BranchObject { get; set; }
+        public BranchInfo Parent { get; set; }
     }
 }
