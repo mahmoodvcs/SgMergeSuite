@@ -138,7 +138,7 @@ namespace SgMergeSuite
         {
             var changeset = TfsServer.GetChangesetDetail(mergeItem.ChangesetId);
             var workitems = includeWorkItems ? changeset.WorkItems.Select(w => new WorkItemCheckinInfo(w.Obj, WorkItemCheckinAction.Associate)).ToArray() : new WorkItemCheckinInfo[] { };
-            TfsServer.CheckInPendingChangesets(mergeItem.Comment, changeset.CheckinNote, workitems, changeset.PolicyOverrideInfo);
+            TfsServer.CheckInPendingChangesets(TargetBranch, mergeItem.Comment, changeset.CheckinNote, workitems, changeset.PolicyOverrideInfo);
         }
 
         private MergeItemView MergeChangeSet(ChangesetView changeset)

@@ -50,10 +50,10 @@ namespace SgMergeSuite
 
 		private void btnGetSelected_Click(object sender, EventArgs e)
 		{
-			if (TfsServer.PendingChangesCount() > 0)
+			if (TfsServer.PendingChangesCount(GetTargetBranch()) > 0)
 			{
 				MessageBox.Show(
-					"You have pending changes in your local copy. Check them in or shelve them to proceed.",
+					"You have pending changes in the local copy of target branch. Check them in or shelve them to proceed.",
 					"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}

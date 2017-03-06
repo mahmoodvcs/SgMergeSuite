@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOptions));
 			this.grboxApplicationOptions = new System.Windows.Forms.GroupBox();
 			this.txtWorkspaceOwner = new System.Windows.Forms.TextBox();
 			this.txtWorkspaceName = new System.Windows.Forms.TextBox();
@@ -131,10 +132,11 @@
 			this.Controls.Add(this.btnSave);
 			this.Controls.Add(this.btnClose);
 			this.Controls.Add(this.grboxApplicationOptions);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "frmOptions";
 			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Options";
+			this.Text = "Merge Suite";
 			this.grboxApplicationOptions.ResumeLayout(false);
 			this.grboxApplicationOptions.PerformLayout();
 			this.ResumeLayout(false);

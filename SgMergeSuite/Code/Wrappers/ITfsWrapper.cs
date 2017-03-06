@@ -13,13 +13,15 @@ namespace SgMergeSuite.Code.Wrappers
 		string WorkspaceOwner { get; }
 		Workspace Workspace { get; }
 
-		void CheckInPendingChangesets(string comment);
-		void CheckInPendingChangesets(string comment, CheckinNote checkinNote, WorkItemCheckinInfo[] workItems, PolicyOverrideInfo policyOverrideInfo);
+		void CheckInPendingChangesets(string targetBranch, string comment);
+		void CheckInPendingChangesets(string targetBranch, string comment, CheckinNote checkinNote, WorkItemCheckinInfo[] workItems, PolicyOverrideInfo policyOverrideInfo);
 		BranchInfo FindBranch(string path);
 		ChangesetView GetChangesetDetail(int changesetId);
 		List<ChangesetView> GetMergeCandidates(string sourceBranch, string targetBranch, RecursionType recursionType = RecursionType.Full);
 		List<BranchInfo> GetPath(string sourcePath, string targetPath);
 		GetStatus MergeChangeset(string sourceBranch, string targetBranch, int changesetId);
 		int PendingChangesCount();
+		int PendingChangesCount(string path);
+		Conflict[] GetConflicts();
 	}
 }

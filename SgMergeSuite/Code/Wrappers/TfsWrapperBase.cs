@@ -17,12 +17,14 @@ namespace SgMergeSuite.Code.Wrappers
 		public abstract string WorkspaceOwner { get; protected set; }
 		public abstract Workspace Workspace { get; protected set; }
 
-		public abstract void CheckInPendingChangesets(string comment);
-		public abstract void CheckInPendingChangesets(string comment, CheckinNote checkinNote, WorkItemCheckinInfo[] workItems, PolicyOverrideInfo policyOverrideInfo);
+		public abstract void CheckInPendingChangesets(string targetBranch, string comment);
+		public abstract void CheckInPendingChangesets(string targetBranch, string comment, CheckinNote checkinNote, WorkItemCheckinInfo[] workItems, PolicyOverrideInfo policyOverrideInfo);
 		public abstract ChangesetView GetChangesetDetail(int changesetId);
 		public abstract List<ChangesetView> GetMergeCandidates(string sourceBranch, string targetBranch, RecursionType recursionType = RecursionType.Full);
 		public abstract GetStatus MergeChangeset(string sourceBranch, string targetBranch, int changesetId);
 		public abstract int PendingChangesCount();
+		public abstract int PendingChangesCount(string path);
+		public abstract Conflict[] GetConflicts();
 
 		public virtual BranchInfo FindBranch(string path)
 		{

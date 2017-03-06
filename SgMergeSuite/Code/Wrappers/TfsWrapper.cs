@@ -129,20 +129,38 @@ namespace SgMergeSuite.Code.Wrappers
         }
 
 
-        public override void CheckInPendingChangesets(string comment)
+        public override void CheckInPendingChangesets(string targetBranch, string comment)
         {
-            CheckInPendingChangesets(comment, null, new WorkItemCheckinInfo[] { }, new PolicyOverrideInfo(".", new PolicyFailure[] { }));
+            CheckInPendingChangesets(targetBranch, comment, null, new WorkItemCheckinInfo[] { }, new PolicyOverrideInfo(".", new PolicyFailure[] { }));
         }
 
-        public override void CheckInPendingChangesets(string comment, CheckinNote checkinNote, WorkItemCheckinInfo[] workItems, PolicyOverrideInfo policyOverrideInfo)
+        public override void CheckInPendingChangesets(string targetBranch, string comment, CheckinNote checkinNote, WorkItemCheckinInfo[] workItems, PolicyOverrideInfo policyOverrideInfo)
         {
-            Workspace.CheckIn(Workspace.GetPendingChanges(), comment, checkinNote, workItems, policyOverrideInfo);
+			var pendin = GetPendingChanges(targetBranch);
+			Workspace.CheckIn(pendin, comment, checkinNote, workItems, policyOverrideInfo);
         }
 
-        public override int PendingChangesCount()
-        {
-            return Workspace.GetPendingChanges().Count();
-        }
+		private PendingChange[] GetPendingChanges(string serverPath)
+		{
+			return Workspace.GetPendingChanges()
+				.Where(p => p.ServerItem.StartsWith(serverPath))
+				.ToArray();
+		}
+		public override int PendingChangesCount()
+		{
+			return Workspace.GetPendingChanges().Count();
+		}
+		public override int PendingChangesCount(string serverPath)
+		{
+			return Workspace.GetPendingChanges()
+				.Where(p=>p.ServerItem.StartsWith(serverPath))
+				.Count();
+		}
+
+		public override Conflict[] GetConflicts()
+		{
+			return Workspace.QueryConflicts(new string[0], true);
+		}
 
     }
 }
