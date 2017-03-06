@@ -96,7 +96,9 @@ namespace SgMergeSuite
 
         private async void MergeAndCheckinChangesetsAsync(List<ChangesetView> changesets)
         {
-            mergeItemViewBindingSource.Clear();
+			var powerTools = new TfsPowerToolsWrapper();
+
+			mergeItemViewBindingSource.Clear();
             var index = 0;
             var totalChangesetCount = changesets.Count;
             var includeWorkItems = chkIncludeWorkItems.Checked;
@@ -107,15 +109,26 @@ namespace SgMergeSuite
                 var changeset = changesets[index];
                 changeset.Comment = ResolveComment(changeset.Comment, RemoveStrings, NOCIPostion, txtCommentPrefix.Text, txtFindWhat.Text, txtReplaceWith.Text, (index + 1) == totalChangesetCount);
                 MergeItemView mergeItem = await Task.Run(() => MergeChangeSet(changeset));
-                if (!mergeItem.IsSuccessfull)
-                {
-                    mergeItemViewBindingSource.Add(mergeItem);
-                    MessageBox.Show(string.Format("There were {0} conflicts merging changeset #{1}, resolve these conflicts/failures and try again....", mergeItem.NumConflicts, mergeItem.ChangesetId), "Conflicts/Failures", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    btnStop.Enabled = btnStart.Enabled = false;
-					new TfsPowerToolsWrapper().Resolve(TfsServer.Workspace.GetLocalItemForServerItem(TargetBranch));
-                    return;
-                }
-                await Task.Run(() => CheckInPendingChanges(mergeItem, includeWorkItems));
+				if (!mergeItem.IsSuccessfull)
+				{
+					mergeItemViewBindingSource.Add(mergeItem);
+					MessageBox.Show(string.Format("There were {0} conflicts merging changeset #{1}, resolve these conflicts/failures and try again....", mergeItem.NumConflicts, mergeItem.ChangesetId), "Conflicts/Failures", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					btnStop.Enabled = false;
+					if (!TfsPowerToolsWrapper.IsInstalled)
+						return;
+					powerTools.Resolve(TfsServer.Workspace.GetLocalItemForServerItem(TargetBranch));
+					if (TfsServer.GetConflicts().Any())
+					{
+						return;
+					}
+					if (MessageBox.Show(this, "Continue Merge?", "Conflicts Resolved", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+						!= DialogResult.Yes)
+					{
+						return;
+					}
+					btnStop.Enabled = true;
+				}
+				await Task.Run(() => CheckInPendingChanges(mergeItem, includeWorkItems));
                 mergeItemViewBindingSource.Add(mergeItem);
                 grdMergedItems.FirstDisplayedScrollingRowIndex = grdMergedItems.RowCount - 1;
                 index++;
