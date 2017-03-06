@@ -112,7 +112,7 @@ namespace SgMergeSuite
                     mergeItemViewBindingSource.Add(mergeItem);
                     MessageBox.Show(string.Format("There were {0} conflicts merging changeset #{1}, resolve these conflicts/failures and try again....", mergeItem.NumConflicts, mergeItem.ChangesetId), "Conflicts/Failures", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     btnStop.Enabled = btnStart.Enabled = false;
-					new TfsPowerToolsWrapper(TfsServer.WorkspaceName).Resolve();
+					new TfsPowerToolsWrapper().Resolve(TfsServer.Workspace.GetLocalItemForServerItem(TargetBranch));
                     return;
                 }
                 await Task.Run(() => CheckInPendingChanges(mergeItem, includeWorkItems));

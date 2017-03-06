@@ -32,11 +32,6 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
 			this.btnGetMergeCandidates = new System.Windows.Forms.Button();
 			this.grdMergeCandidates = new System.Windows.Forms.DataGridView();
-			this.changesetIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.userDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.commentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.changesetViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.btnMergeSelectedItems = new System.Windows.Forms.Button();
 			this.grboxBranchInfo = new System.Windows.Forms.GroupBox();
 			this.uxAllowMultiLevelMerge = new System.Windows.Forms.CheckBox();
@@ -64,12 +59,17 @@
 			this.tsslSelectedItems = new System.Windows.Forms.ToolStripStatusLabel();
 			this.label1 = new System.Windows.Forms.Label();
 			this.uxMergePath = new System.Windows.Forms.TextBox();
+			this.changesetIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.userDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.commentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.changesetViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.grdMergeCandidates)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.changesetViewBindingSource)).BeginInit();
 			this.grboxBranchInfo.SuspendLayout();
 			this.grboxChangeSetInfo.SuspendLayout();
 			this.tsmMenu.SuspendLayout();
 			this.statusStrip.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.changesetViewBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// btnGetMergeCandidates
@@ -106,42 +106,8 @@
 			this.grdMergeCandidates.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.grdMergeCandidates.Size = new System.Drawing.Size(809, 240);
 			this.grdMergeCandidates.TabIndex = 1;
+			this.grdMergeCandidates.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdMergeCandidates_CellMouseDoubleClick);
 			this.grdMergeCandidates.SelectionChanged += new System.EventHandler(this.grdMergeCandidates_SelectionChanged);
-			// 
-			// changesetIdDataGridViewTextBoxColumn
-			// 
-			this.changesetIdDataGridViewTextBoxColumn.DataPropertyName = "ChangesetId";
-			this.changesetIdDataGridViewTextBoxColumn.HeaderText = "Changeset";
-			this.changesetIdDataGridViewTextBoxColumn.Name = "changesetIdDataGridViewTextBoxColumn";
-			this.changesetIdDataGridViewTextBoxColumn.ReadOnly = true;
-			this.changesetIdDataGridViewTextBoxColumn.Width = 80;
-			// 
-			// userDataGridViewTextBoxColumn
-			// 
-			this.userDataGridViewTextBoxColumn.DataPropertyName = "User";
-			this.userDataGridViewTextBoxColumn.HeaderText = "User";
-			this.userDataGridViewTextBoxColumn.Name = "userDataGridViewTextBoxColumn";
-			this.userDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// dateDataGridViewTextBoxColumn
-			// 
-			this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
-			this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
-			this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-			this.dateDataGridViewTextBoxColumn.ReadOnly = true;
-			this.dateDataGridViewTextBoxColumn.Width = 120;
-			// 
-			// commentDataGridViewTextBoxColumn
-			// 
-			this.commentDataGridViewTextBoxColumn.DataPropertyName = "Comment";
-			this.commentDataGridViewTextBoxColumn.HeaderText = "Comment";
-			this.commentDataGridViewTextBoxColumn.Name = "commentDataGridViewTextBoxColumn";
-			this.commentDataGridViewTextBoxColumn.ReadOnly = true;
-			this.commentDataGridViewTextBoxColumn.Width = 400;
-			// 
-			// changesetViewBindingSource
-			// 
-			this.changesetViewBindingSource.DataSource = typeof(SgMergeSuite.Code.ModelViews.ChangesetView);
 			// 
 			// btnMergeSelectedItems
 			// 
@@ -409,6 +375,41 @@
 			this.uxMergePath.Size = new System.Drawing.Size(404, 20);
 			this.uxMergePath.TabIndex = 8;
 			// 
+			// changesetIdDataGridViewTextBoxColumn
+			// 
+			this.changesetIdDataGridViewTextBoxColumn.DataPropertyName = "ChangesetId";
+			this.changesetIdDataGridViewTextBoxColumn.HeaderText = "Changeset";
+			this.changesetIdDataGridViewTextBoxColumn.Name = "changesetIdDataGridViewTextBoxColumn";
+			this.changesetIdDataGridViewTextBoxColumn.ReadOnly = true;
+			this.changesetIdDataGridViewTextBoxColumn.Width = 80;
+			// 
+			// userDataGridViewTextBoxColumn
+			// 
+			this.userDataGridViewTextBoxColumn.DataPropertyName = "User";
+			this.userDataGridViewTextBoxColumn.HeaderText = "User";
+			this.userDataGridViewTextBoxColumn.Name = "userDataGridViewTextBoxColumn";
+			this.userDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// dateDataGridViewTextBoxColumn
+			// 
+			this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+			this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+			this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+			this.dateDataGridViewTextBoxColumn.ReadOnly = true;
+			this.dateDataGridViewTextBoxColumn.Width = 120;
+			// 
+			// commentDataGridViewTextBoxColumn
+			// 
+			this.commentDataGridViewTextBoxColumn.DataPropertyName = "Comment";
+			this.commentDataGridViewTextBoxColumn.HeaderText = "Comment";
+			this.commentDataGridViewTextBoxColumn.Name = "commentDataGridViewTextBoxColumn";
+			this.commentDataGridViewTextBoxColumn.ReadOnly = true;
+			this.commentDataGridViewTextBoxColumn.Width = 400;
+			// 
+			// changesetViewBindingSource
+			// 
+			this.changesetViewBindingSource.DataSource = typeof(SgMergeSuite.Code.ModelViews.ChangesetView);
+			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -429,8 +430,8 @@
 			this.Name = "frmMain";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Merge Suite";
+			this.Load += new System.EventHandler(this.frmMain_Load);
 			((System.ComponentModel.ISupportInitialize)(this.grdMergeCandidates)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.changesetViewBindingSource)).EndInit();
 			this.grboxBranchInfo.ResumeLayout(false);
 			this.grboxBranchInfo.PerformLayout();
 			this.grboxChangeSetInfo.ResumeLayout(false);
@@ -439,6 +440,7 @@
 			this.tsmMenu.PerformLayout();
 			this.statusStrip.ResumeLayout(false);
 			this.statusStrip.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.changesetViewBindingSource)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -480,6 +482,6 @@
         private System.Windows.Forms.CheckBox uxAllowMultiLevelMerge;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox uxMergePath;
-    }
+	}
 }
 

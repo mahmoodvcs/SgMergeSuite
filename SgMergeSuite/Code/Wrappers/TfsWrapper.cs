@@ -16,11 +16,13 @@ namespace SgMergeSuite.Code.Wrappers
         public override string WorkspaceName { get; protected set; }
         public override string WorkspaceOwner { get; protected set; }
         protected VersionControlServer TfsVersionControlServer { get; set; }
-        protected Workspace Workspace { get; set; }
+        public override Workspace Workspace { get; protected set; }
 
         public TfsWrapper(string serverPath, string workspaceName, string workspaceOwner)
         {
-            ServerPath = serverPath;
+			this.WorkspaceName = workspaceName;
+			this.WorkspaceOwner = workspaceOwner;
+			ServerPath = serverPath;
             var tpc = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(new Uri(serverPath));
             TfsVersionControlServer = (VersionControlServer)tpc.GetService(typeof(VersionControlServer));
             Workspace = TfsVersionControlServer.GetWorkspace(workspaceName, workspaceOwner);

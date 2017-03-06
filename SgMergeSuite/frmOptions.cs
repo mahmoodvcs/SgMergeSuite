@@ -43,5 +43,5 @@ namespace SgMergeSuite
             DialogResult = DialogResult.OK;
             this.Close();
         }
-    }
+	}
 }

@@ -37,8 +37,12 @@ namespace SgMergeSuite
             SetControlStates();
         }
 
+		private void frmMain_Load(object sender, EventArgs e)
+		{
+			TfsPowerToolsWrapper.Init(TfsServer.ServerPath, TfsServer.WorkspaceName, this.Handle);
+		}
 
-        private void btnGetMergeCandidates_Click(object sender, EventArgs e)
+		private void btnGetMergeCandidates_Click(object sender, EventArgs e)
         {
             RefreshMergeCandidates();
         }
@@ -50,7 +54,7 @@ namespace SgMergeSuite
 			{
 				MessageBox.Show(
 					"You have pending changes in your local copy. Check them in or shelve them to proceed.",
-					"Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+					"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 			var result = MessageBox.Show(
@@ -269,5 +273,12 @@ namespace SgMergeSuite
             btnGetMergeCandidates.Enabled = true;
             uxMergePath.Text = string.Join(" -->> ", path.Select(p => p.Name.Remove(0, 2)));
         }
-    }
+
+		private void grdMergeCandidates_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+		{
+			var id = Convert.ToInt32(grdMergeCandidates.Rows[e.RowIndex].Cells[0].Value);
+			//new TfsPowerToolsWrapper(TfsServer.WorkspaceName).ChangeSetDetails(id);
+		}
+
+	}
 }

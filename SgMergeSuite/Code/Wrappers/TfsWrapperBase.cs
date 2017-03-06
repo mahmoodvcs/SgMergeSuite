@@ -15,6 +15,7 @@ namespace SgMergeSuite.Code.Wrappers
 		public abstract string ServerPath { get; protected set; }
 		public abstract string WorkspaceName { get; protected set; }
 		public abstract string WorkspaceOwner { get; protected set; }
+		public abstract Workspace Workspace { get; protected set; }
 
 		public abstract void CheckInPendingChangesets(string comment);
 		public abstract void CheckInPendingChangesets(string comment, CheckinNote checkinNote, WorkItemCheckinInfo[] workItems, PolicyOverrideInfo policyOverrideInfo);
